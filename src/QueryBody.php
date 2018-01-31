@@ -71,7 +71,11 @@ class QueryBody
      */
     public function addBodyPart($part): QueryBody
     {
-        array_push($this->body, $part);
+        if (is_string($part)) {
+            $part = [$part];
+        }
+        
+        $this->body = array_merge($this->body, $part);
         return $this;
     }
 
@@ -158,7 +162,7 @@ class QueryBody
      * @return object
      * @throws ParserException
      */
-    public function validateBodyParam($param)
+    protected function validateBodyParam($param)
     {
         if (array_keys((array) $param) !== ['name', 'type']) {
             throw new ParserException('Wrong body param');
@@ -182,15 +186,15 @@ class QueryBody
     public function build(): string
     {
         $result = $this->name;
-        $params = null;
+        $params = [];
         foreach ($this->nameParams as $name_param) {
-            $params .= $this->parseQueryParam($name_param);
+            $params[] = $this->parseBodyParam($name_param);
         }
-        if ($params !== null) {
-            $result .= '(' . $params . ')' . Builder::PARSER_EOL;
+        if (!empty($params)) {
+            $result .= '(' . implode(', ', $params) . ')' . Builder::PARSER_EOL;
         }
 
-        $result .= $this->parseBody($this->body);
+        $result .= ' ' . $this->parseBody($this->body);
 
         return $result;
     }

@@ -39,14 +39,9 @@ trait ParseTrait
      * @param $param
      *
      * @return string
-     * @throws \QueryBuilder\Exceptions\ParserException
      */
     public function parseBodyParam($param): string
     {
-        if (array_keys((array) $param) !== ['name', 'type']) {
-            throw new ParserException("Wrong body param structure");
-        }
-
         return $param->name . ': $' . $param->type;
     }
 
@@ -69,7 +64,7 @@ trait ParseTrait
             if (is_int($key)) {
                 $bodyString .= $element . Builder::PARSER_EOL;
             } elseif (is_string($key) && is_array($element)) {
-                $bodyString .= $key . Builder::PARSER_L_BRACE . Builder::PARSER_EOL;
+                $bodyString .= $key . ' ' . Builder::PARSER_L_BRACE . Builder::PARSER_EOL;
                 $this->processBody($element, $bodyString);
                 $bodyString .= Builder::PARSER_R_BRACE . Builder::PARSER_EOL;
             }

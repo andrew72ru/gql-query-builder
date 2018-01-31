@@ -8,6 +8,7 @@
 namespace QueryBuilder;
 
 use QueryBuilder\Exceptions\ParserException;
+use QueryBuilder\Traits\ParseTrait;
 
 /**
  * Class Builder
@@ -15,6 +16,8 @@ use QueryBuilder\Exceptions\ParserException;
  */
 class Builder
 {
+    use ParseTrait;
+
     const TYPE_STRING = 'String';
 
     const TYPE_DATE_TIME = 'DateTime';
@@ -79,11 +82,11 @@ class Builder
      */
     public function addQueryParam(string $param, string $type, bool $required = false, bool $isArray = false): Builder
     {
-        array_push($this->queryParams, (object) [
-            'name' => $param,
-            'type' => $type,
+        array_push($this->queryParams, (object)[
+            'name'     => $param,
+            'type'     => $type,
             'required' => $required,
-            'isArray' => $isArray,
+            'isArray'  => $isArray,
         ]);
         return $this;
     }
@@ -97,10 +100,11 @@ class Builder
     }
 
     /**
-     * @param array $params Array of arrays / objects with ['name' => string, 'type' => string, 'required' => bool, 'isArray' => bool] structure
+     * @param array $params Array of arrays / objects with ['name' => string, 'type' => string, 'required' => bool,
+     *                      'isArray' => bool] structure
      *
      * @return \QueryBuilder\Builder
-     * @throws \QueryBuilder\Exceptions\ParserException
+     * @throws ParserException
      */
     public function setQueryParams(array $params): Builder
     {
@@ -116,15 +120,15 @@ class Builder
      * @param $param
      *
      * @return object
-     * @throws \QueryBuilder\Exceptions\ParserException
+     * @throws ParserException
      */
     public static function validateQueryParam($param)
     {
-        if (array_keys((array) $param) !== ['name', 'type', 'required', 'isArray']) {
+        if (array_keys((array)$param) !== ['name', 'type', 'required', 'isArray']) {
             throw new ParserException("Bad parameter format");
         }
 
-        return (object) $param;
+        return (object)$param;
     }
 
     /**
@@ -170,9 +174,9 @@ class Builder
 
     /**
      * @return string
-     * @throws \QueryBuilder\Exceptions\ParserException
+     * @throws ParserException
      */
-    public function getBodyAsString(): string
+    protected function getBodyAsString(): string
     {
         $result = '';
         foreach ($this->body as $item) {
@@ -180,8 +184,41 @@ class Builder
                 $result .= $varName . ': ';
             }
 
-            $result .= $item->build();
+            $result .= $item->build() . self::PARSER_EOL;
         }
+
+        return $result;
+    }
+
+    /**
+     * @return string
+     * @throws ParserException
+     */
+    protected function getParamsAsString(): string
+    {
+        $result = [];
+        foreach ($this->queryParams as $param) {
+            $result[] = $this->parseQueryParam($param);
+        }
+
+        return implode(', ', $result);
+    }
+
+    /**
+     * @return string
+     * @throws ParserException
+     */
+    public function build(): string
+    {
+        $result = 'query ' . $this->getName();
+        $params = $this->getParamsAsString();
+        if (!empty($params)) {
+            $result .= '(' . $params . ')';
+        }
+
+        $result .= ' ' . self::PARSER_L_BRACE . self::PARSER_EOL
+                   . $this->getBodyAsString()
+                   . self::PARSER_R_BRACE;
 
         return $result;
     }

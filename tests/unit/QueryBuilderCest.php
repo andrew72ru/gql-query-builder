@@ -204,4 +204,17 @@ class QueryBuilderCest
 
         $I->assertEquals($this->normalizeString($expect), $this->normalizeString($builder->build()));
     }
+
+    /**
+     * @param \UnitTester $I
+     *
+     * @throws \QueryBuilder\Exceptions\ParserException
+     */
+    public function checkGraphQLParams(UnitTester $I)
+    {
+        $params = ['pools' => ['mt5_rc'], 'symbols' => ['V20#5_VEB_2020_USD']];
+        $builder = new Builder();
+        $I->assertInstanceOf(Builder::class, $builder->setGqlParams($params));
+        $I->assertEquals($params, $builder->getGqlParams());
+    }
 }

@@ -1,16 +1,19 @@
 {
-    "name": "andrew/gql-query-builder",
-    "description": "GraphGL query builder",
-    "type": "library",
-    "require-dev": {
-        "codeception/codeception": "^2.3",
-        "friendsofphp/php-cs-fixer": "^2.10"
-    },
-    "license": "proprietary",
-    "minimum-stability": "stable",
-    "autoload" : {
-        "psr-4" : {
-            "QueryBuilder\\": "src/"
-        }
+  "name": "andrew72ru/gql-query-builder",
+  "description": "GraphGL query builder",
+  "type": "library",
+  "require": {
+    "php": ">=7.1.0"
+  },
+  "require-dev": {
+    "codeception/codeception": "^2.3",
+    "friendsofphp/php-cs-fixer": "^2.10"
+  },
+  "license": "proprietary",
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "QueryBuilder\\": "src/"
     }
+  }
 }

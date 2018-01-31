@@ -46,6 +46,32 @@ class Builder
     private $body;
 
     /**
+     * @var array
+     */
+    private $gqlParams = [];
+
+    /**
+     * @return array
+     */
+    public function getGqlParams(): array
+    {
+        return $this->gqlParams;
+    }
+
+    /**
+     * @param array $gqlParams
+     *
+     * @return \QueryBuilder\Builder
+     * @throws \QueryBuilder\Exceptions\ParserException
+     */
+    public function setGqlParams(array $gqlParams): Builder
+    {
+        $this->gqlParams = $gqlParams;
+
+        return $this;
+    }
+
+    /**
      * Builder constructor.
      */
     public function __construct()

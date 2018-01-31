@@ -1,0 +1,357 @@
+<?php
+$coverage = new SebastianBergmann\CodeCoverage\CodeCoverage;
+$coverage->setData(array (
+  '/Users/andrew/Sites/creative/alfa/gql-query-builder/src/QueryBody.php' => 
+  array (
+    52 => 
+    array (
+      0 => 'QueryBuilderCest:createBuilderClasses',
+      1 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    53 => 
+    array (
+      0 => 'QueryBuilderCest:createBuilderClasses',
+      1 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    62 => 
+    array (
+    ),
+    63 => 
+    array (
+    ),
+    64 => NULL,
+    73 => 
+    array (
+    ),
+    74 => 
+    array (
+    ),
+    75 => NULL,
+    84 => 
+    array (
+    ),
+    85 => 
+    array (
+    ),
+    86 => NULL,
+    94 => 
+    array (
+    ),
+    95 => 
+    array (
+    ),
+    96 => NULL,
+    103 => 
+    array (
+    ),
+    104 => NULL,
+    112 => 
+    array (
+    ),
+    113 => 
+    array (
+    ),
+    114 => NULL,
+    126 => 
+    array (
+    ),
+    127 => 
+    array (
+    ),
+    128 => 
+    array (
+    ),
+    129 => 
+    array (
+    ),
+    130 => 
+    array (
+    ),
+    133 => 
+    array (
+    ),
+    134 => NULL,
+    142 => 
+    array (
+    ),
+    143 => 
+    array (
+    ),
+    144 => 
+    array (
+    ),
+    145 => 
+    array (
+    ),
+    147 => 
+    array (
+    ),
+    148 => 
+    array (
+    ),
+    151 => 
+    array (
+    ),
+    153 => 
+    array (
+    ),
+    154 => NULL,
+  ),
+  '/Users/andrew/Sites/creative/alfa/gql-query-builder/src/Builder.php' => 
+  array (
+    50 => 
+    array (
+      0 => 'QueryBuilderCest:createBuilderClasses',
+      1 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    51 => 
+    array (
+      0 => 'QueryBuilderCest:createBuilderClasses',
+      1 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    60 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    61 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    62 => NULL,
+    69 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    70 => NULL,
+    80 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    81 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    82 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    84 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    85 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    86 => NULL,
+    98 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    99 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    100 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    101 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    102 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    104 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    105 => NULL,
+    112 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    113 => NULL,
+    120 => 
+    array (
+      0 => 'QueryBuilderCest:createBuilderClasses',
+    ),
+    121 => NULL,
+    129 => 
+    array (
+    ),
+    130 => 
+    array (
+    ),
+    131 => 
+    array (
+    ),
+    132 => 
+    array (
+    ),
+    135 => 
+    array (
+    ),
+    138 => 
+    array (
+    ),
+    139 => NULL,
+    149 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    150 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    153 => 
+    array (
+      0 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    154 => NULL,
+  ),
+  '/Users/andrew/Sites/creative/alfa/gql-query-builder/src/Traits/ParseTrait.php' => 
+  array (
+    23 => 
+    array (
+    ),
+    25 => 
+    array (
+    ),
+    26 => 
+    array (
+    ),
+    27 => 
+    array (
+    ),
+    28 => 
+    array (
+    ),
+    30 => 
+    array (
+    ),
+    31 => 
+    array (
+    ),
+    33 => 
+    array (
+    ),
+    34 => NULL,
+    38 => 
+    array (
+    ),
+    39 => 
+    array (
+    ),
+    40 => 
+    array (
+    ),
+    42 => 
+    array (
+    ),
+    43 => NULL,
+    51 => 
+    array (
+    ),
+    52 => 
+    array (
+    ),
+    53 => 
+    array (
+    ),
+    54 => 
+    array (
+    ),
+    55 => 
+    array (
+    ),
+    56 => 
+    array (
+    ),
+    57 => 
+    array (
+    ),
+    60 => 
+    array (
+    ),
+  ),
+  '/Users/andrew/Sites/creative/alfa/gql-query-builder/src/Exceptions/ParserException.php' => 
+  array (
+    16 => 
+    array (
+      0 => 'QueryBuilderCest:exceptionWithoutMessage',
+      1 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    17 => 
+    array (
+      0 => 'QueryBuilderCest:exceptionWithoutMessage',
+    ),
+    20 => 
+    array (
+      0 => 'QueryBuilderCest:exceptionWithoutMessage',
+      1 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    21 => 
+    array (
+      0 => 'QueryBuilderCest:exceptionWithoutMessage',
+      1 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    23 => 
+    array (
+      0 => 'QueryBuilderCest:exceptionWithoutMessage',
+      1 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+    24 => 
+    array (
+      0 => 'QueryBuilderCest:exceptionWithoutMessage',
+      1 => 'QueryBuilderCest:setAndAddParameters',
+    ),
+  ),
+  '/Users/andrew/Sites/creative/alfa/gql-query-builder/src/QueryVariables.php' => 
+  array (
+    28 => 
+    array (
+    ),
+    29 => 
+    array (
+    ),
+    30 => 
+    array (
+    ),
+  ),
+));
+$coverage->setTests(array (
+  'QueryBuilderCest:createBuilderClasses' => 
+  array (
+    'size' => 'unknown',
+    'status' => NULL,
+  ),
+  'QueryBuilderCest:exceptionWithoutMessage' => 
+  array (
+    'size' => 'unknown',
+    'status' => NULL,
+  ),
+  'QueryBuilderCest:setAndAddParameters' => 
+  array (
+    'size' => 'unknown',
+    'status' => NULL,
+  ),
+  'UNCOVERED_FILES_FROM_WHITELIST' => 
+  array (
+    'size' => 'unknown',
+    'status' => NULL,
+  ),
+));
+
+$filter = $coverage->filter();
+$filter->setWhitelistedFiles(array (
+  '/Users/andrew/Sites/creative/alfa/gql-query-builder/src/Builder.php' => true,
+  '/Users/andrew/Sites/creative/alfa/gql-query-builder/src/Exceptions/ParserException.php' => true,
+  '/Users/andrew/Sites/creative/alfa/gql-query-builder/src/QueryBody.php' => true,
+  '/Users/andrew/Sites/creative/alfa/gql-query-builder/src/QueryVariables.php' => true,
+  '/Users/andrew/Sites/creative/alfa/gql-query-builder/src/Traits/ParseTrait.php' => true,
+));
+
+return $coverage;

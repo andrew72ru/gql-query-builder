@@ -7,6 +7,7 @@
 
 namespace QueryBuilder;
 
+use QueryBuilder\Exceptions\ParserException;
 use QueryBuilder\Traits\ParseTrait;
 
 /**
@@ -55,7 +56,7 @@ class QueryBody
     /**
      * @param array $body
      *
-     * @return \QueryBuilder\QueryBody
+     * @return QueryBody
      */
     public function setBody(array $body): QueryBody
     {
@@ -66,22 +67,11 @@ class QueryBody
     /**
      * @param string|array $part
      *
-     * @return \QueryBuilder\QueryBody
+     * @return QueryBody
      */
     public function addBodyPart($part): QueryBody
     {
         array_push($this->body, $part);
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     *
-     * @return \QueryBuilder\QueryBody
-     */
-    public function setName(string $name): QueryBody
-    {
-        $this->name = $name;
         return $this;
     }
 
@@ -91,12 +81,13 @@ class QueryBody
     }
 
     /**
-     * @param mixed $variableName
-     * @return \QueryBuilder\QueryBody
+     * @param string $name
+     *
+     * @return QueryBody
      */
-    public function setVariableName($variableName): QueryBody
+    public function setName(string $name): QueryBody
     {
-        $this->variableName = $variableName;
+        $this->name = $name;
         return $this;
     }
 
@@ -109,51 +100,91 @@ class QueryBody
     }
 
     /**
+     * @param mixed $variableName
+     *
+     * @return QueryBody
+     */
+    public function setVariableName($variableName): QueryBody
+    {
+        $this->variableName = $variableName;
+        return $this;
+    }
+
+    /**
+     * @param string $param
+     * @param string $paramLink
+     *
+     * @return QueryBody
+     * @throws \QueryBuilder\Exceptions\ParserException
+     */
+    public function addNameParam(string $param, string $paramLink): QueryBody
+    {
+        $object = $this->validateBodyParam([
+            'name' => $param,
+            'type' => $paramLink,
+        ]);
+        array_push($this->nameParams, $object);
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNameParams()
+    {
+        return $this->nameParams;
+    }
+
+    /**
      * @param array $nameParams
      *
-     * @return \QueryBuilder\QueryBody
-     * @throws \QueryBuilder\Exceptions\ParserException
+     * @return QueryBody
+     * @throws ParserException
      */
     public function setNameParams(array $nameParams): QueryBody
     {
         $validated = [];
         foreach ($nameParams as $name_param) {
-            $validated[] = Builder::validateQueryParam($name_param);
+            $validated[] = $this->validateBodyParam($name_param);
         }
         $this->nameParams = $validated;
         return $this;
     }
 
     /**
-     * @param string $param
-     * @param string $type
-     * @param bool   $required
-     * @param bool   $isArray
+     * @param $param
      *
-     * @return \QueryBuilder\QueryBody
+     * @return object
+     * @throws ParserException
      */
-    public function addNameParam(string $param, string $type, bool $required = false, bool $isArray = false): QueryBody
+    public function validateBodyParam($param)
     {
-        array_push($this->nameParams, (object) [
-            'name' => $param,
-            'type' => $type,
-            'required' => $required,
-            'isArray' => $isArray,
-        ]);
+        if (array_keys((array) $param) !== ['name', 'type']) {
+            throw new ParserException('Wrong body param');
+        }
 
-        return $this;
+        if (is_array($param)) {
+            $param = (object) $param;
+        }
+
+        if (!$this->builder->isParamExists($param->type)) {
+            throw new ParserException("Unable to find {$param->type} in Builder. Add this param to Builder before adding it to body query");
+        }
+
+        return (object) $param;
     }
 
     /**
      * @return string
-     * @throws \QueryBuilder\Exceptions\ParserException
+     * @throws ParserException
      */
     public function build(): string
     {
         $result = $this->name;
         $params = null;
         foreach ($this->nameParams as $name_param) {
-            $params .= $this->parseParam($name_param);
+            $params .= $this->parseQueryParam($name_param);
         }
         if ($params !== null) {
             $result .= '(' . $params . ')' . Builder::PARSER_EOL;

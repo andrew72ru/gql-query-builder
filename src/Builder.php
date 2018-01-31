@@ -51,17 +51,6 @@ class Builder
     }
 
     /**
-     * @param string $name
-     *
-     * @return \QueryBuilder\Builder
-     */
-    public function setName(string $name): Builder
-    {
-        $this->name = $name;
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
@@ -70,18 +59,13 @@ class Builder
     }
 
     /**
-     * @param array $params Array of arrays / objects with ['name' => string, 'type' => string, 'required' => bool, 'isArray' => bool] structure
+     * @param string $name
      *
      * @return \QueryBuilder\Builder
-     * @throws \QueryBuilder\Exceptions\ParserException
      */
-    public function setQueryParams(array $params): Builder
+    public function setName(string $name): Builder
     {
-        $validated = [];
-        foreach ($params as $param) {
-            $validated[] = self::validateQueryParam($param);
-        }
-        $this->queryParams = $validated;
+        $this->name = $name;
         return $this;
     }
 
@@ -113,14 +97,50 @@ class Builder
     }
 
     /**
-     * @param \QueryBuilder\QueryBody $body
+     * @param array $params Array of arrays / objects with ['name' => string, 'type' => string, 'required' => bool, 'isArray' => bool] structure
      *
      * @return \QueryBuilder\Builder
+     * @throws \QueryBuilder\Exceptions\ParserException
      */
-    public function setBody(QueryBody $body): Builder
+    public function setQueryParams(array $params): Builder
     {
-        $this->body = [$body];
+        $validated = [];
+        foreach ($params as $param) {
+            $validated[] = self::validateQueryParam($param);
+        }
+        $this->queryParams = $validated;
         return $this;
+    }
+
+    /**
+     * @param $param
+     *
+     * @return object
+     * @throws \QueryBuilder\Exceptions\ParserException
+     */
+    public static function validateQueryParam($param)
+    {
+        if (array_keys((array) $param) !== ['name', 'type', 'required', 'isArray']) {
+            throw new ParserException("Bad parameter format");
+        }
+
+        return (object) $param;
+    }
+
+    /**
+     * @param string $paramName
+     *
+     * @return bool
+     */
+    public function isParamExists(string $paramName): bool
+    {
+        foreach ($this->queryParams as $queryParam) {
+            if ($queryParam->name === $paramName) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function addBodyPart(QueryBody $body): Builder
@@ -135,6 +155,17 @@ class Builder
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * @param \QueryBuilder\QueryBody $body
+     *
+     * @return \QueryBuilder\Builder
+     */
+    public function setBody(QueryBody $body): Builder
+    {
+        $this->body = [$body];
+        return $this;
     }
 
     /**
@@ -153,20 +184,5 @@ class Builder
         }
 
         return $result;
-    }
-
-    /**
-     * @param $param
-     *
-     * @return object
-     * @throws \QueryBuilder\Exceptions\ParserException
-     */
-    public static function validateQueryParam($param)
-    {
-        if (array_keys((array) $param) !== ['name', 'type', 'required', 'isArray']) {
-            throw new ParserException("Bad parameter format");
-        }
-
-        return (object) $param;
     }
 }

@@ -5,10 +5,10 @@
  * Time: 18:55
  */
 
-namespace QueryBuilder;
+namespace afsc\QueryBuilder;
 
-use QueryBuilder\Exceptions\ParserException;
-use QueryBuilder\Traits\ParseTrait;
+use afsc\QueryBuilder\Exceptions\ParserException;
+use afsc\QueryBuilder\Traits\ParseTrait;
 
 /**
  * Class QueryBody
@@ -39,14 +39,14 @@ class QueryBody
     private $nameParams = [];
 
     /**
-     * @var \QueryBuilder\Builder
+     * @var Builder
      */
     private $builder;
 
     /**
      * QueryBody constructor.
      *
-     * @param \QueryBuilder\Builder $builder
+     * @param Builder $builder
      */
     public function __construct(Builder $builder)
     {
@@ -119,7 +119,7 @@ class QueryBody
      * @param string $paramLink
      *
      * @return QueryBody
-     * @throws \QueryBuilder\Exceptions\ParserException
+     * @throws ParserException
      */
     public function addNameParam(string $param, string $paramLink): QueryBody
     {

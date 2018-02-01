@@ -5,10 +5,10 @@
  * Time: 18:41
  */
 
-namespace QueryBuilder;
+namespace afsc\QueryBuilder;
 
-use QueryBuilder\Exceptions\ParserException;
-use QueryBuilder\Traits\ParseTrait;
+use afsc\QueryBuilder\Exceptions\ParserException;
+use afsc\QueryBuilder\Traits\ParseTrait;
 
 /**
  * Class Builder
@@ -41,7 +41,7 @@ class Builder
     private $queryParams = [];
 
     /**
-     * @var \QueryBuilder\QueryBody[]
+     * @var QueryBody[]
      */
     private $body;
 
@@ -61,8 +61,7 @@ class Builder
     /**
      * @param array $gqlParams
      *
-     * @return \QueryBuilder\Builder
-     * @throws \QueryBuilder\Exceptions\ParserException
+     * @return Builder
      */
     public function setGqlParams(array $gqlParams): Builder
     {
@@ -79,6 +78,11 @@ class Builder
         $this->body = [new QueryBody($this)];
     }
 
+    public function makeBody():  QueryBody
+    {
+        return new QueryBody($this);
+    }
+
     /**
      * @return string
      */
@@ -90,7 +94,7 @@ class Builder
     /**
      * @param string $name
      *
-     * @return \QueryBuilder\Builder
+     * @return Builder
      */
     public function setName(string $name): Builder
     {
@@ -104,7 +108,7 @@ class Builder
      * @param bool   $required
      * @param bool   $isArray
      *
-     * @return \QueryBuilder\Builder
+     * @return Builder
      */
     public function addQueryParam(string $param, string $type, bool $required = false, bool $isArray = false): Builder
     {
@@ -129,7 +133,7 @@ class Builder
      * @param array $params Array of arrays / objects with ['name' => string, 'type' => string, 'required' => bool,
      *                      'isArray' => bool] structure
      *
-     * @return \QueryBuilder\Builder
+     * @return Builder
      * @throws ParserException
      */
     public function setQueryParams(array $params): Builder
@@ -180,7 +184,7 @@ class Builder
     }
 
     /**
-     * @return array|\QueryBuilder\QueryBody[]
+     * @return array|QueryBody[]
      */
     public function getBody()
     {
@@ -188,9 +192,9 @@ class Builder
     }
 
     /**
-     * @param \QueryBuilder\QueryBody $body
+     * @param QueryBody $body
      *
-     * @return \QueryBuilder\Builder
+     * @return Builder
      */
     public function setBody(QueryBody $body): Builder
     {

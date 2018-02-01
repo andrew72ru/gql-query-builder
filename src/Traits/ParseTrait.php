@@ -5,10 +5,9 @@
  * Time: 19:19
  */
 
-namespace QueryBuilder\Traits;
+namespace afsc\QueryBuilder\Traits;
 
-use QueryBuilder\Builder;
-use QueryBuilder\Exceptions\ParserException;
+use afsc\QueryBuilder\Builder;
 
 trait ParseTrait
 {
@@ -16,7 +15,7 @@ trait ParseTrait
      * @param $param
      *
      * @return string
-     * @throws \QueryBuilder\Exceptions\ParserException
+     * @throws \afsc\QueryBuilder\Exceptions\ParserException
      */
     public function parseQueryParam($param): string
     {

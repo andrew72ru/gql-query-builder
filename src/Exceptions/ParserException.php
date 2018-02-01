@@ -5,7 +5,7 @@
  * Time: 8:40
  */
 
-namespace QueryBuilder\Exceptions;
+namespace afsc\QueryBuilder\Exceptions;
 
 use Throwable;
 

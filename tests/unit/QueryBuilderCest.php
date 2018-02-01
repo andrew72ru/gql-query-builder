@@ -1,9 +1,9 @@
 <?php
 
 
-use QueryBuilder\Builder;
-use QueryBuilder\Exceptions\ParserException;
-use QueryBuilder\QueryBody;
+use afsc\QueryBuilder\Builder;
+use afsc\QueryBuilder\Exceptions\ParserException;
+use afsc\QueryBuilder\QueryBody;
 
 class QueryBuilderCest
 {
@@ -208,7 +208,7 @@ class QueryBuilderCest
     /**
      * @param \UnitTester $I
      *
-     * @throws \QueryBuilder\Exceptions\ParserException
+     * @throws \afsc\QueryBuilder\Exceptions\ParserException
      */
     public function checkGraphQLParams(UnitTester $I)
     {

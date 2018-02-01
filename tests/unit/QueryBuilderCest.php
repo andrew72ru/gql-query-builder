@@ -166,6 +166,8 @@ class QueryBuilderCest
 
         $I->assertInstanceOf(QueryBody::class, $body->setVariableName("today"));
         $I->assertEquals($body->getVariableName(), "today");
+
+        $I->assertInstanceOf(QueryBody::class, $builder->makeBody());
     }
 
     /**

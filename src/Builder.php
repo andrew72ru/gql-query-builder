@@ -2,7 +2,7 @@
 /**
  * User: andrew
  * Date: 30.01.2018
- * Time: 18:41
+ * Time: 18:41.
  */
 
 namespace andrew72ru\QueryBuilder;
@@ -78,8 +78,6 @@ use andrew72ru\QueryBuilder\Traits\ParseTrait;
  * return $builder->build();
  *
  * ```
- *
- * @package QueryBuilder
  */
 class Builder
 {
@@ -96,22 +94,22 @@ class Builder
     const TYPE_DATE_TIME = 'DateTime';
 
     /**
-     * Symbol determinate a required query variable
+     * Symbol determinate a required query variable.
      */
     const REQUIRED_SYMBOL = '!';
 
     /**
-     * End of line symbol for build query
+     * End of line symbol for build query.
      */
     const PARSER_EOL = "\n";
 
     /**
-     * Left brace
+     * Left brace.
      */
     const PARSER_L_BRACE = '{';
 
     /**
-     * Right brace
+     * Right brace.
      */
     const PARSER_R_BRACE = '}';
 
@@ -148,7 +146,7 @@ class Builder
      *
      * @return Builder
      */
-    public function setGqlVariables(array $gqlVariables): Builder
+    public function setGqlVariables(array $gqlVariables): self
     {
         $this->gqlVariables = $gqlVariables;
 
@@ -163,7 +161,7 @@ class Builder
         $this->body = [new QueryBody($this)];
     }
 
-    public function makeBody():  QueryBody
+    public function makeBody(): QueryBody
     {
         return new QueryBody($this);
     }
@@ -181,14 +179,15 @@ class Builder
      *
      * @return Builder
      */
-    public function setName(string $name): Builder
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
-     * Adds a single query parameter
+     * Adds a single query parameter.
      *
      * @param string $param
      * @param string $type
@@ -196,18 +195,20 @@ class Builder
      * @param bool   $isArray
      *
      * @return Builder
+     *
      * @throws ParserException
      */
-    public function addQueryParam(string $param, string $type, bool $required = false, bool $isArray = false): Builder
+    public function addQueryParam(string $param, string $type, bool $required = false, bool $isArray = false): self
     {
         $param = new QueryParam([
-            'name'     => $param,
-            'type'     => $type,
+            'name' => $param,
+            'type' => $type,
             'required' => $required,
-            'isArray'  => $isArray,
+            'isArray' => $isArray,
         ], true);
 
         array_push($this->queryParams, $param);
+
         return $this;
     }
 
@@ -226,25 +227,27 @@ class Builder
      *                      'isArray' => bool] structure
      *
      * @return Builder
+     *
      * @throws ParserException
      */
-    public function setQueryParams(array $params): Builder
+    public function setQueryParams(array $params): self
     {
         $validated = [];
         foreach ($params as $param) {
             $obj = new QueryParam($param);
             if (!$obj->validate()) {
-                throw new ParserException("Bad parameter format");
+                throw new ParserException('Bad parameter format');
             }
 
             $validated[] = $obj;
         }
         $this->queryParams = $validated;
+
         return $this;
     }
 
     /**
-     * Whether the parameter exists
+     * Whether the parameter exists.
      *
      * @param string $paramName
      *
@@ -263,15 +266,16 @@ class Builder
     }
 
     /**
-     * Adds the part to query body
+     * Adds the part to query body.
      *
      * @param QueryBody $body
      *
      * @return Builder
      */
-    public function addBodyPart(QueryBody $body): Builder
+    public function addBodyPart(QueryBody $body): self
     {
         array_push($this->body, $body);
+
         return $this;
     }
 
@@ -284,22 +288,24 @@ class Builder
     }
 
     /**
-     * Sets the complete query body
+     * Sets the complete query body.
      *
      * @param QueryBody $body
      *
      * @return Builder
      */
-    public function setBody(QueryBody $body): Builder
+    public function setBody(QueryBody $body): self
     {
         $this->body = [$body];
+
         return $this;
     }
 
     /**
-     * Returns the query body as parsed string
+     * Returns the query body as parsed string.
      *
      * @return string
+     *
      * @throws ParserException
      */
     protected function getBodyAsString(): string
@@ -317,9 +323,10 @@ class Builder
     }
 
     /**
-     * Returns all query params as string
+     * Returns all query params as string.
      *
      * @return string
+     *
      * @throws ParserException
      */
     protected function getParamsAsString(): string
@@ -333,9 +340,10 @@ class Builder
     }
 
     /**
-     * Main function to complete parse all query parts
+     * Main function to complete parse all query parts.
      *
      * @return string
+     *
      * @throws ParserException
      */
     public function build(): string
@@ -354,9 +362,10 @@ class Builder
     }
 
     /**
-     * Standard toString implementation
+     * Standard toString implementation.
      *
      * @return string
+     *
      * @throws ParserException
      */
     public function __toString()

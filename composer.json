@@ -9,11 +9,11 @@
     "codeception/codeception": "^2.3",
     "friendsofphp/php-cs-fixer": "^2.10"
   },
-  "license": "proprietary",
+  "license": "MIT",
   "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
-      "afsc\\QueryBuilder\\": "src/"
+      "andrew72ru\\QueryBuilder\\": "src/"
     }
   }
 }

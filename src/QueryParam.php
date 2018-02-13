@@ -5,9 +5,9 @@
  * Time: 12:15
  */
 
-namespace afsc\QueryBuilder;
+namespace andrew72ru\QueryBuilder;
 
-use afsc\QueryBuilder\Exceptions\ParserException;
+use andrew72ru\QueryBuilder\Exceptions\ParserException;
 
 /**
  * Class QueryParam
@@ -41,7 +41,7 @@ class QueryParam
      * @param array $params
      * @param bool  $validate
      *
-     * @throws \afsc\QueryBuilder\Exceptions\ParserException
+     * @throws ParserException
      */
     public function __construct($params = [], $validate = false)
     {

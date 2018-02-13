@@ -1,10 +1,10 @@
 <?php
 
 
-use afsc\QueryBuilder\Builder;
-use afsc\QueryBuilder\Exceptions\ParserException;
-use afsc\QueryBuilder\QueryBody;
-use afsc\QueryBuilder\QueryParam;
+use andrew72ru\QueryBuilder\Builder;
+use andrew72ru\QueryBuilder\Exceptions\ParserException;
+use andrew72ru\QueryBuilder\QueryBody;
+use andrew72ru\QueryBuilder\QueryParam;
 
 class QueryBuilderCest
 {
@@ -137,7 +137,7 @@ class QueryBuilderCest
     /**
      * @param \UnitTester $I
      *
-     * @throws \afsc\QueryBuilder\Exceptions\ParserException
+     * @throws ParserException
      */
     public function validateQueryParams(UnitTester $I)
     {
@@ -158,7 +158,7 @@ class QueryBuilderCest
     /**
      * @param \UnitTester $I
      *
-     * @throws \afsc\QueryBuilder\Exceptions\ParserException
+     * @throws ParserException
      */
     public function validateVariousQueryParams(UnitTester $I)
     {
@@ -267,7 +267,7 @@ class QueryBuilderCest
     /**
      * @param \UnitTester $I
      *
-     * @throws \afsc\QueryBuilder\Exceptions\ParserException
+     * @throws ParserException
      */
     public function checkGraphQLParams(UnitTester $I)
     {

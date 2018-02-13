@@ -5,10 +5,10 @@
  * Time: 18:41
  */
 
-namespace afsc\QueryBuilder;
+namespace andrew72ru\QueryBuilder;
 
-use afsc\QueryBuilder\Exceptions\ParserException;
-use afsc\QueryBuilder\Traits\ParseTrait;
+use andrew72ru\QueryBuilder\Exceptions\ParserException;
+use andrew72ru\QueryBuilder\Traits\ParseTrait;
 
 /**
  * Class Builder
@@ -109,7 +109,7 @@ class Builder
      * @param bool   $isArray
      *
      * @return Builder
-     * @throws \afsc\QueryBuilder\Exceptions\ParserException
+     * @throws ParserException
      */
     public function addQueryParam(string $param, string $type, bool $required = false, bool $isArray = false): Builder
     {
@@ -161,7 +161,7 @@ class Builder
      */
     public function isParamExists(string $paramName): bool
     {
-        /** @var \afsc\QueryBuilder\QueryParam $queryParam */
+        /** @var QueryParam $queryParam */
         foreach ($this->queryParams as $queryParam) {
             if ($queryParam->getName() === $paramName) {
                 return true;

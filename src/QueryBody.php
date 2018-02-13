@@ -5,10 +5,10 @@
  * Time: 18:55
  */
 
-namespace afsc\QueryBuilder;
+namespace andrew72ru\QueryBuilder;
 
-use afsc\QueryBuilder\Exceptions\ParserException;
-use afsc\QueryBuilder\Traits\ParseTrait;
+use andrew72ru\QueryBuilder\Exceptions\ParserException;
+use andrew72ru\QueryBuilder\Traits\ParseTrait;
 
 /**
  * Class QueryBody

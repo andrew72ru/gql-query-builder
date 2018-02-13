@@ -5,10 +5,10 @@
  * Time: 19:19
  */
 
-namespace afsc\QueryBuilder\Traits;
+namespace andrew72ru\QueryBuilder\Traits;
 
-use afsc\QueryBuilder\Builder;
-use afsc\QueryBuilder\QueryParam;
+use andrew72ru\QueryBuilder\Builder;
+use andrew72ru\QueryBuilder\QueryParam;
 
 /**
  * Trait for parse common objects / arrays to GQL strings
@@ -20,10 +20,9 @@ trait ParseTrait
     /**
      * Parse parameter for query
      *
-     * @param \afsc\QueryBuilder\QueryParam $param
+     * @param QueryParam $param
      *
      * @return string
-     * @throws \afsc\QueryBuilder\Exceptions\ParserException
      */
     public function parseQueryParam(QueryParam $param): string
     {

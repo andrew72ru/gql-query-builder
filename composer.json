@@ -2,6 +2,13 @@
   "name": "afsc/gql-query-builder",
   "description": "GraphGL query builder",
   "type": "library",
+  "authors": [
+    {
+      "name": "Andrew Zhdanovskih",
+      "email": "andrew72ru@gmail.com",
+      "role": "Developer"
+    }
+  ],
   "require": {
     "php": ">=7.1.0"
   },

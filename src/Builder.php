@@ -11,61 +11,146 @@ use andrew72ru\QueryBuilder\Exceptions\ParserException;
 use andrew72ru\QueryBuilder\Traits\ParseTrait;
 
 /**
- * Class Builder
+ * The main class for a build GraphQL queries.
+ *
+ * Simple usage:
+ *
+ * For example, wee need to get this query
+ *
+ * ```
+ * query TradingSchema($pools: [String!], $symbols: [String!], $yesterday: DateTime) {
+ *  today: quotes(pools: $pools, symbols: $symbols) {
+ *      symbol {
+ *          symbol
+ *          expirationDate
+ *      }
+ *      time
+ *      ask
+ *      bid
+ *  }
+ *  yesterday: quotes(pools: $pools, symbols: $symbols, time: $yesterday) {
+ *    symbol {
+ *          symbol
+ *          expirationDate
+ *      }
+ *      time
+ *      ask
+ *    }
+ *  }
+ *
+ * The code above builds this query:
+ *
+ * ```php
+ * $builder = new Builder();
+ * $builder->setName('TradingSchema');
+ * $builder->addQueryParam('pools', Builder::TYPE_STRING, true, true)
+ *      ->addQueryParam('symbols', Builder::TYPE_STRING, true, true)
+ *      ->addQueryParam('yesterday', Builder::TYPE_DATE_TIME, false, false);
+ *
+ * $bodyToday = new QueryBody($builder);
+ * $bodyToday->setName('quotes')
+ *      ->setVariableName('today')
+ *      ->addBodyPart(['symbol' => ['symbol', 'expirationDate']])
+ *      ->addBodyPart('time')
+ *      ->addBodyPart('ask')
+ *      ->addBodyPart('bid');
+ *
+ * $bodyToday->addNameParam('pools', 'pools')
+ *      ->addNameParam('symbols', 'symbols');
+ *
+ * $bodyYesterday = new QueryBody($builder);
+ * $bodyYesterday->setName('quotes')
+ *      ->setVariableName('yesterday');
+ *
+ * $body = [
+ *      'symbol' => [
+ *          'symbol',
+ *          'expirationDate',
+ *      ],
+ *      'time',
+ *      'ask'
+ *  ];
+ * $bodyYesterday->setBody($body);
+ * $bodyYesterday->setNameParams($params);
+ *
+ * $builder->setBody($bodyToday)->addBodyPart($bodyYesterday);
+ *
+ * return $builder->build();
+ *
+ * ```
+ *
  * @package QueryBuilder
  */
 class Builder
 {
     use ParseTrait;
 
+    /**
+     * Type in query variable.
+     */
     const TYPE_STRING = 'String';
 
+    /**
+     * Type in query variable.
+     */
     const TYPE_DATE_TIME = 'DateTime';
 
+    /**
+     * Symbol determinate a required query variable
+     */
     const REQUIRED_SYMBOL = '!';
 
+    /**
+     * End of line symbol for build query
+     */
     const PARSER_EOL = "\n";
 
+    /**
+     * Left brace
+     */
     const PARSER_L_BRACE = '{';
 
+    /**
+     * Right brace
+     */
     const PARSER_R_BRACE = '}';
 
     /**
-     * @var string
+     * @var string Name for query
      */
     private $name;
 
     /**
-     * @var array
+     * @var array Array of QueryParam objects for build query
      */
     private $queryParams = [];
 
     /**
-     * @var QueryBody[]
+     * @var QueryBody[] Object for query body
      */
     private $body;
 
     /**
-     * @var array
+     * @var array Array for GraphQL variables
      */
-    private $gqlParams = [];
+    private $gqlVariables = [];
 
     /**
      * @return array
      */
-    public function getGqlParams(): array
+    public function getGqlVariables(): array
     {
-        return $this->gqlParams;
+        return $this->gqlVariables;
     }
 
     /**
-     * @param array $gqlParams
+     * @param array $gqlVariables
      *
      * @return Builder
      */
-    public function setGqlParams(array $gqlParams): Builder
+    public function setGqlVariables(array $gqlVariables): Builder
     {
-        $this->gqlParams = $gqlParams;
+        $this->gqlVariables = $gqlVariables;
 
         return $this;
     }
@@ -103,6 +188,8 @@ class Builder
     }
 
     /**
+     * Adds a single query parameter
+     *
      * @param string $param
      * @param string $type
      * @param bool   $required
@@ -118,7 +205,7 @@ class Builder
             'type'     => $type,
             'required' => $required,
             'isArray'  => $isArray,
-        ]);
+        ], true);
 
         array_push($this->queryParams, $param);
         return $this;
@@ -133,6 +220,8 @@ class Builder
     }
 
     /**
+     * Sets the array of query parameters. All existing parameters will be overwrite!
+     *
      * @param array $params Array of arrays / objects with ['name' => string, 'type' => string, 'required' => bool,
      *                      'isArray' => bool] structure
      *
@@ -155,6 +244,8 @@ class Builder
     }
 
     /**
+     * Whether the parameter exists
+     *
      * @param string $paramName
      *
      * @return bool
@@ -171,6 +262,13 @@ class Builder
         return false;
     }
 
+    /**
+     * Adds the part to query body
+     *
+     * @param QueryBody $body
+     *
+     * @return Builder
+     */
     public function addBodyPart(QueryBody $body): Builder
     {
         array_push($this->body, $body);
@@ -186,6 +284,8 @@ class Builder
     }
 
     /**
+     * Sets the complete query body
+     *
      * @param QueryBody $body
      *
      * @return Builder
@@ -197,6 +297,8 @@ class Builder
     }
 
     /**
+     * Returns the query body as parsed string
+     *
      * @return string
      * @throws ParserException
      */
@@ -215,6 +317,8 @@ class Builder
     }
 
     /**
+     * Returns all query params as string
+     *
      * @return string
      * @throws ParserException
      */
@@ -229,6 +333,8 @@ class Builder
     }
 
     /**
+     * Main function to complete parse all query parts
+     *
      * @return string
      * @throws ParserException
      */
@@ -245,5 +351,16 @@ class Builder
                    . self::PARSER_R_BRACE;
 
         return $result;
+    }
+
+    /**
+     * Standard toString implementation
+     *
+     * @return string
+     * @throws ParserException
+     */
+    public function __toString()
+    {
+        return $this->build();
     }
 }

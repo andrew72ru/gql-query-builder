@@ -11,7 +11,7 @@ use andrew72ru\QueryBuilder\Exceptions\ParserException;
 use andrew72ru\QueryBuilder\Traits\ParseTrait;
 
 /**
- * Class QueryBody
+ * Class for create QraohQL query body to use it in @see Builder
  * @package QueryBuilder
  */
 class QueryBody
@@ -19,27 +19,27 @@ class QueryBody
     use ParseTrait;
 
     /**
-     * @var array
+     * @var array Complete query body as array
      */
     private $body = [];
 
     /**
-     * @var string
+     * @var string Query body name
      */
     private $name;
 
     /**
-     * @var string|null
+     * @var string|null variable for named body (e.g. `today: quotes(pools: $pools, symbols: $symbols)`)
      */
     private $variableName = null;
 
     /**
-     * @var array
+     * @var array Array for body part params (`(pools: $pools, symbols: $symbols)`)
      */
     private $nameParams = [];
 
     /**
-     * @var Builder
+     * @var Builder Builder class instance
      */
     private $builder;
 
@@ -79,6 +79,9 @@ class QueryBody
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
@@ -104,7 +107,7 @@ class QueryBody
     }
 
     /**
-     * @param mixed $variableName
+     * @param string $variableName
      *
      * @return QueryBody
      */
@@ -115,6 +118,11 @@ class QueryBody
     }
 
     /**
+     * Add param to query body part
+     * Take an attention: the parameter name **must be exists** in parent Builder, otherwise parameter can not be added.
+     * For example: if You want to make body params as `quotes(pools: $pools, symbols: $symbols)`, You must have a
+     * `$pools: [String!], $symbols: [String!]` in parent part
+     *
      * @param string $param
      * @param string $paramLink
      *
@@ -133,6 +141,8 @@ class QueryBody
     }
 
     /**
+     * Returns all name params as array
+     *
      * @return array
      */
     public function getNameParams()
@@ -180,6 +190,8 @@ class QueryBody
     }
 
     /**
+     * Parse body to string
+     *
      * @return string
      * @throws ParserException
      */
@@ -197,5 +209,16 @@ class QueryBody
         $result .= ' ' . $this->parseBody($this->body);
 
         return $result;
+    }
+
+    /**
+     * Standard "to string" implementation
+     *
+     * @return string
+     * @throws ParserException
+     */
+    public function __toString()
+    {
+        return $this->build();
     }
 }

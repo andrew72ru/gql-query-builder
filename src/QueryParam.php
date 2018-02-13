@@ -10,28 +10,28 @@ namespace andrew72ru\QueryBuilder;
 use andrew72ru\QueryBuilder\Exceptions\ParserException;
 
 /**
- * Class QueryParam
+ * Separate class for build query parameter for builder
  * @package afsc\QueryBuilder
  */
 class QueryParam
 {
     /**
-     * @var string
+     * @var string Parameter name
      */
     private $name;
 
     /**
-     * @var string
+     * @var string parameter type
      */
     private $type;
 
     /**
-     * @var bool
+     * @var bool is parameter required. If true, parser will adds the required mark (in regular, «!») to this parameter in result query
      */
     private $required = false;
 
     /**
-     * @var bool
+     * @var bool is parameter an array. If true, parser will adds the «array» attribute («[]») to this parameter in reqult query
      */
     private $isArray = false;
 

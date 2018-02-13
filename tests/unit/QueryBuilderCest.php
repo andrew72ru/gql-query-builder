@@ -223,6 +223,7 @@ class QueryBuilderCest
 
         $I->assertInstanceOf(QueryBody::class, $body->setVariableName("today"));
         $I->assertEquals($body->getVariableName(), "today");
+        $I->assertTrue(is_string((string) $body));
 
         $I->assertInstanceOf(QueryBody::class, $builder->makeBody());
     }
@@ -262,6 +263,8 @@ class QueryBuilderCest
             ->setName('TradingSchema');
 
         $I->assertEquals($this->normalizeString($expect), $this->normalizeString($builder->build()));
+
+        $I->assertEquals($this->normalizeString($expect), $this->normalizeString((string) $builder));
     }
 
     /**
@@ -273,7 +276,7 @@ class QueryBuilderCest
     {
         $params = ['pools' => ['mt5_rc'], 'symbols' => ['V20#5_VEB_2020_USD']];
         $builder = new Builder();
-        $I->assertInstanceOf(Builder::class, $builder->setGqlParams($params));
-        $I->assertEquals($params, $builder->getGqlParams());
+        $I->assertInstanceOf(Builder::class, $builder->setGqlVariables($params));
+        $I->assertEquals($params, $builder->getGqlVariables());
     }
 }

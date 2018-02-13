@@ -49,6 +49,11 @@ trait ParseTrait
         return $param->name . ': $' . $param->type;
     }
 
+    /**
+     * @param array $body
+     *
+     * @return string
+     */
     public function parseBody(array $body): string
     {
         $bodyString = Builder::PARSER_L_BRACE . Builder::PARSER_EOL;

@@ -9,6 +9,10 @@ namespace andrew72ru\QueryBuilder\Exceptions;
 
 use Throwable;
 
+/**
+ * Class ParserException
+ * @package andrew72ru\QueryBuilder\Exceptions
+ */
 class ParserException extends \Exception
 {
     public function __construct(string $message = "", int $code = 0, Throwable $previous = null)

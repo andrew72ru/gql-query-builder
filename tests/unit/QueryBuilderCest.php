@@ -4,6 +4,7 @@
 use afsc\QueryBuilder\Builder;
 use afsc\QueryBuilder\Exceptions\ParserException;
 use afsc\QueryBuilder\QueryBody;
+use afsc\QueryBuilder\QueryParam;
 
 class QueryBuilderCest
 {
@@ -130,7 +131,63 @@ class QueryBuilderCest
         ];
 
         $I->assertInstanceOf(Builder::class, $builder->setQueryParams([$secondParam]));
-        $I->assertEquals([$secondParam], $builder->getQueryParams());
+        $I->assertEquals([new QueryParam($secondParam)], $builder->getQueryParams());
+    }
+
+    /**
+     * @param \UnitTester $I
+     *
+     * @throws \afsc\QueryBuilder\Exceptions\ParserException
+     */
+    public function validateQueryParams(UnitTester $I)
+    {
+        $param = new QueryParam();
+        $I->assertInstanceOf(QueryParam::class, $param->setName('newName'));
+        $I->assertInstanceOf(QueryParam::class, $param->setType('string'));
+        $I->assertInstanceOf(QueryParam::class, $param->setRequired(true));
+        $I->assertInstanceOf(QueryParam::class, $param->setIsArray(false));
+
+        $I->assertEquals($param->toArray(), [
+            'name' => 'newName',
+            'type' => 'string',
+            'required' => true,
+            'isArray' => false,
+        ]);
+    }
+
+    /**
+     * @param \UnitTester $I
+     *
+     * @throws \afsc\QueryBuilder\Exceptions\ParserException
+     */
+    public function validateVariousQueryParams(UnitTester $I)
+    {
+        $one = [
+            'name' => 'testParam1',
+            'type' => Builder::TYPE_STRING,
+            'required' => true,
+            'isArray' => false,
+        ];
+
+        $I->assertInstanceOf(QueryParam::class, new QueryParam($one, true));
+
+        $two = (object) [
+            'type' => Builder::TYPE_DATE_TIME,
+            'required' => true,
+            'isArray' => true,
+            'name' => 'timeParam1',
+        ];
+
+        $I->assertInstanceOf(QueryParam::class, new QueryParam($two, true));
+
+        $three = (object) [
+            'not' => 'valid',
+            'object' => 'here',
+        ];
+
+        $I->expectException(\Exception::class, function () use ($three) {
+            new QueryParam($three, true);
+        });
     }
 
     /**

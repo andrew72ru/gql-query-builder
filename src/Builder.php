@@ -109,15 +109,18 @@ class Builder
      * @param bool   $isArray
      *
      * @return Builder
+     * @throws \afsc\QueryBuilder\Exceptions\ParserException
      */
     public function addQueryParam(string $param, string $type, bool $required = false, bool $isArray = false): Builder
     {
-        array_push($this->queryParams, (object)[
+        $param = new QueryParam([
             'name'     => $param,
             'type'     => $type,
             'required' => $required,
             'isArray'  => $isArray,
         ]);
+
+        array_push($this->queryParams, $param);
         return $this;
     }
 
@@ -140,25 +143,15 @@ class Builder
     {
         $validated = [];
         foreach ($params as $param) {
-            $validated[] = self::validateQueryParam($param);
+            $obj = new QueryParam($param);
+            if (!$obj->validate()) {
+                throw new ParserException("Bad parameter format");
+            }
+
+            $validated[] = $obj;
         }
         $this->queryParams = $validated;
         return $this;
-    }
-
-    /**
-     * @param $param
-     *
-     * @return object
-     * @throws ParserException
-     */
-    public static function validateQueryParam($param)
-    {
-        if (array_keys((array)$param) !== ['name', 'type', 'required', 'isArray']) {
-            throw new ParserException("Bad parameter format");
-        }
-
-        return (object)$param;
     }
 
     /**
@@ -168,8 +161,9 @@ class Builder
      */
     public function isParamExists(string $paramName): bool
     {
+        /** @var \afsc\QueryBuilder\QueryParam $queryParam */
         foreach ($this->queryParams as $queryParam) {
-            if ($queryParam->name === $paramName) {
+            if ($queryParam->getName() === $paramName) {
                 return true;
             }
         }

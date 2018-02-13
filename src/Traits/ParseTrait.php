@@ -8,26 +8,32 @@
 namespace afsc\QueryBuilder\Traits;
 
 use afsc\QueryBuilder\Builder;
+use afsc\QueryBuilder\QueryParam;
 
+/**
+ * Trait for parse common objects / arrays to GQL strings
+ *
+ * @package afsc\QueryBuilder\Traits
+ */
 trait ParseTrait
 {
     /**
-     * @param $param
+     * Parse parameter for query
+     *
+     * @param \afsc\QueryBuilder\QueryParam $param
      *
      * @return string
      * @throws \afsc\QueryBuilder\Exceptions\ParserException
      */
-    public function parseQueryParam($param): string
+    public function parseQueryParam(QueryParam $param): string
     {
-        $param = Builder::validateQueryParam($param);
-
-        $result = '$' . $param->name . ': ';
-        $type = $param->type;
-        if ($param->required) {
+        $result = '$' . $param->getName() . ': ';
+        $type = $param->getType();
+        if ($param->isRequired()) {
             $type = $type . Builder::REQUIRED_SYMBOL;
         }
 
-        if ($param->isArray) {
+        if ($param->isArray()) {
             $type = '[' . $type . ']';
         }
 

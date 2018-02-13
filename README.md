@@ -1,6 +1,9 @@
 Small library for build [GraphQL](http://graphql.org) queries in php
 ====================================================================
 
+[![Build Status](https://travis-ci.org/andrew72ru/gql-query-builder.svg?branch=master)](https://travis-ci.org/andrew72ru/gql-query-builder)
+[![Coverage Satatus](https://codecov.io/gh/andrew72ru/gql-query-builder/branch/master/graph/badge.svg)](https://codecov.io/gh/andrew72ru/gql-query-builder/branch/master)
+
 **Attention!**  
 The library **does not include** any http-clients implementations and intended **only** for build valid queries for some GraphQL servers. The correctness of requests depends of specific GraphQL server implementation. 
 

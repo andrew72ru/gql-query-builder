@@ -2,7 +2,7 @@
 /**
  * User: andrew
  * Date: 30.01.2018
- * Time: 18:55
+ * Time: 18:55.
  */
 
 namespace andrew72ru\QueryBuilder;
@@ -11,8 +11,7 @@ use andrew72ru\QueryBuilder\Exceptions\ParserException;
 use andrew72ru\QueryBuilder\Traits\ParseTrait;
 
 /**
- * Class for create QraohQL query body to use it in @see Builder
- * @package QueryBuilder
+ * Class for create QraohQL query body to use it in @see Builder.
  */
 class QueryBody
 {
@@ -29,12 +28,19 @@ class QueryBody
     private $name;
 
     /**
-     * @var string|null variable for named body (e.g. `today: quotes(pools: $pools, symbols: $symbols)`)
+     * @var string|null variable for named body
+     *                  For example:
+     *                  ```
+     *                  today: quotes(pools:, symbols: $symbols)
+     *                  ```
      */
     private $variableName = null;
 
     /**
-     * @var array Array for body part params (`(pools: $pools, symbols: $symbols)`)
+     * @var array Array for body part params
+     *            ```
+     *            (pools:, symbols: $symbols)
+     *            ```
      */
     private $nameParams = [];
 
@@ -58,9 +64,10 @@ class QueryBody
      *
      * @return QueryBody
      */
-    public function setBody(array $body): QueryBody
+    public function setBody(array $body): self
     {
         $this->body = $body;
+
         return $this;
     }
 
@@ -69,13 +76,14 @@ class QueryBody
      *
      * @return QueryBody
      */
-    public function addBodyPart($part): QueryBody
+    public function addBodyPart($part): self
     {
         if (is_string($part)) {
             $part = [$part];
         }
-        
+
         $this->body = array_merge($this->body, $part);
+
         return $this;
     }
 
@@ -92,9 +100,10 @@ class QueryBody
      *
      * @return QueryBody
      */
-    public function setName(string $name): QueryBody
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -111,9 +120,10 @@ class QueryBody
      *
      * @return QueryBody
      */
-    public function setVariableName($variableName): QueryBody
+    public function setVariableName($variableName): self
     {
         $this->variableName = $variableName;
+
         return $this;
     }
 
@@ -121,15 +131,16 @@ class QueryBody
      * Add param to query body part
      * Take an attention: the parameter name **must be exists** in parent Builder, otherwise parameter can not be added.
      * For example: if You want to make body params as `quotes(pools: $pools, symbols: $symbols)`, You must have a
-     * `$pools: [String!], $symbols: [String!]` in parent part
+     * `$pools: [String!], $symbols: [String!]` in parent part.
      *
      * @param string $param
      * @param string $paramLink
      *
      * @return QueryBody
+     *
      * @throws ParserException
      */
-    public function addNameParam(string $param, string $paramLink): QueryBody
+    public function addNameParam(string $param, string $paramLink): self
     {
         $object = $this->validateBodyParam([
             'name' => $param,
@@ -141,7 +152,7 @@ class QueryBody
     }
 
     /**
-     * Returns all name params as array
+     * Returns all name params as array.
      *
      * @return array
      */
@@ -154,15 +165,17 @@ class QueryBody
      * @param array $nameParams
      *
      * @return QueryBody
+     *
      * @throws ParserException
      */
-    public function setNameParams(array $nameParams): QueryBody
+    public function setNameParams(array $nameParams): self
     {
         $validated = [];
         foreach ($nameParams as $name_param) {
             $validated[] = $this->validateBodyParam($name_param);
         }
         $this->nameParams = $validated;
+
         return $this;
     }
 
@@ -170,6 +183,7 @@ class QueryBody
      * @param $param
      *
      * @return object
+     *
      * @throws ParserException
      */
     protected function validateBodyParam($param)
@@ -190,9 +204,10 @@ class QueryBody
     }
 
     /**
-     * Parse body to string
+     * Parse body to string.
      *
      * @return string
+     *
      * @throws ParserException
      */
     public function build(): string
@@ -212,9 +227,10 @@ class QueryBody
     }
 
     /**
-     * Standard "to string" implementation
+     * Standard "to string" implementation.
      *
      * @return string
+     *
      * @throws ParserException
      */
     public function __toString()

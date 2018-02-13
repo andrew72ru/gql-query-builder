@@ -2,7 +2,7 @@
 /**
  * User: andrew
  * Date: 30.01.2018
- * Time: 19:19
+ * Time: 19:19.
  */
 
 namespace andrew72ru\QueryBuilder\Traits;
@@ -11,14 +11,12 @@ use andrew72ru\QueryBuilder\Builder;
 use andrew72ru\QueryBuilder\QueryParam;
 
 /**
- * Trait for parse common objects / arrays to GQL strings
- *
- * @package afsc\QueryBuilder\Traits
+ * Trait for parse common objects / arrays to GQL strings.
  */
 trait ParseTrait
 {
     /**
-     * Parse parameter for query
+     * Parse parameter for query.
      *
      * @param QueryParam $param
      *

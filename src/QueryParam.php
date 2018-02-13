@@ -2,7 +2,7 @@
 /**
  * User: andrew
  * Date: 13.02.2018
- * Time: 12:15
+ * Time: 12:15.
  */
 
 namespace andrew72ru\QueryBuilder;
@@ -10,8 +10,7 @@ namespace andrew72ru\QueryBuilder;
 use andrew72ru\QueryBuilder\Exceptions\ParserException;
 
 /**
- * Separate class for build query parameter for builder
- * @package afsc\QueryBuilder
+ * Separate class for build query parameter for builder.
  */
 class QueryParam
 {
@@ -56,7 +55,7 @@ class QueryParam
         }
 
         if ($validate && !$this->validate()) {
-            throw new ParserException("Bad parameter format");
+            throw new ParserException('Bad parameter format');
         }
     }
 
@@ -73,9 +72,10 @@ class QueryParam
      *
      * @return QueryParam
      */
-    public function setName(string $name): QueryParam
+    public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -92,9 +92,10 @@ class QueryParam
      *
      * @return QueryParam
      */
-    public function setType(string $type): QueryParam
+    public function setType(string $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -111,9 +112,10 @@ class QueryParam
      *
      * @return QueryParam
      */
-    public function setRequired(bool $required): QueryParam
+    public function setRequired(bool $required): self
     {
         $this->required = $required;
+
         return $this;
     }
 
@@ -130,9 +132,10 @@ class QueryParam
      *
      * @return QueryParam
      */
-    public function setIsArray(bool $isArray): QueryParam
+    public function setIsArray(bool $isArray): self
     {
         $this->isArray = $isArray;
+
         return $this;
     }
 

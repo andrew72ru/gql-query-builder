@@ -1,7 +1,9 @@
 {
   "name": "andrew72ru/gql-query-builder",
   "description": "GraphGL query builder",
+  "license": "MIT",
   "type": "library",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "Andrew Zhdanovskih",
@@ -16,8 +18,12 @@
     "codeception/codeception": "^2.3",
     "friendsofphp/php-cs-fixer": "^2.10"
   },
-  "license": "MIT",
-  "minimum-stability": "stable",
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/andrew72ru/gql-query-builder"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "andrew72ru\\QueryBuilder\\": "src/"

@@ -13,7 +13,7 @@ script:
   - vendor/bin/codecept --version
   - vendor/bin/codecept run --coverage-xml
   - vendor/bin/php-cs-fixer fix --version
-  - vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run --stop-on-violation --using-cache=no
+  - vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run --stop-on-violation --using-cache=no src/
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
